@@ -8,18 +8,26 @@
 
 ## 진행 가이드
 - React와 React-Native중 원하는 프레임워크를 사용해주세요. (단, React의 경우 웹앱형식으로 구현해주세요. )
+- tpyeScript를 사용하시길 권장드립니다.
 - 반드시 상태관리 라이브러리 Redux를 필수로 사용해주세요.
 - 동영상과 같은 UI를 구성해주세요.
 - View All 클릭  ->  유저 클릭  ->   Block 클릭시 ->  리스트에서 유저삭제
-- 유저 삭제는 별도의 API 요청 없이 AsyncStorage를 사용해주세요.
+- 유저 삭제는 별도의 API 요청 없이 AsyncStorage 및 LocalStorage를 사용해주세요.
 - 리스트 이외의 값들은 API요청 없이 코드에 원하는 값을 넣어주세요.
 - 사용 API : https://mxl2ywa4zhlvwjymvb5gnc247a0qfndn.lambda-url.ap-northeast-2.on.aws/?limit={limit}&offset={offset}
+
+```
+image :  프로필 사진
+serialNumber : 이름
+price : 획득 코인
+```
 
 ## 제출 방법
 - 위의 Repository를 포크(fork)하여 개발 후 Git URL을 soy@proground.co.kr 로 첨부해주세요.
 - fork 레파지토리 명은 proground-assignment-영어닉네임으로 생성해주세요.
 - 코드의 일관성, 가독성, 함수분리, 컴포넌트 설계, 코드 퀄리티, 데이터 상태관리 등을 기준으로 세부적인 평가가 이루어집니다.
 - README.md에 본인이 과제 하면서 설명하고 싶은 부분이 있다면 자유롭게 작성해주세요.
+
 
 
 ## 참고사항
