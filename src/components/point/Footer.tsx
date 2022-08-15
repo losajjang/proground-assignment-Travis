@@ -4,25 +4,25 @@ import {ScoreA} from '../../assets/images/index';
 
 const Footer = () => {
   return (
-    <View style={styles.footerContainer}>
-      <Image style={styles.footerImage} source={ScoreA} />
-      <Text style={styles.footerFont}>Point</Text>
+    <View style={styles.Container}>
+      <Image style={styles.Image} source={ScoreA} />
+      <Text style={styles.Font}>Point</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  footerContainer: {
+  Container: {
     alignItems: 'center',
   },
-  footerFont: {
+  Image: {
+    width: 25,
+    height: 25,
+  },
+  Font: {
     color: '#ff310f',
     fontWeight: 'bold',
     fontSize: 12,
-  },
-  footerImage: {
-    width: 25,
-    height: 25,
   },
 });
 
