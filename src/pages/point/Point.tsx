@@ -9,9 +9,11 @@ import {
 import {ScrollView, SafeAreaView, View} from 'react-native';
 
 export type componentType = {
+  Header: undefined;
   DailyScore: undefined;
   EstimatedWalk: undefined;
   LeaderBoard: undefined;
+  Footer: undefined;
 };
 
 const UserInfo = () => {
