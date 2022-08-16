@@ -13,6 +13,7 @@ const Footer = () => {
 
 const styles = StyleSheet.create({
   Container: {
+    marginTop: 16,
     alignItems: 'center',
   },
   Image: {

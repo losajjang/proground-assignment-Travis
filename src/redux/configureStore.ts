@@ -1,10 +1,15 @@
-import {combineReducers, createStore, Reducer, Store} from 'redux';
+import {useDispatch} from 'react-redux';
+import {applyMiddleware, combineReducers, createStore, Store} from 'redux';
+import thunk from 'redux-thunk';
 import UserList from './modules/userList';
 
-const rootReducer: Reducer = combineReducers({
+const rootReducer = combineReducers({
   userList: UserList,
 });
 
-const store: Store = createStore(rootReducer);
+const store: Store = createStore(rootReducer, applyMiddleware(thunk));
 
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>;
 export default store;
