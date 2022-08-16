@@ -1,7 +1,8 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {onPressProps} from '../../types/onPressProps';
 
-const LeaderBoard = () => {
+const LeaderBoard = ({openAllUserList}: onPressProps) => {
   const mockList = [
     {
       id: 1,
@@ -69,9 +70,9 @@ const LeaderBoard = () => {
     <View style={styles.container}>
       <View style={styles.titleBox}>
         <Text style={styles.fontTitle}>LeaderBoard</Text>
-        <Pressable>
+        <TouchableHighlight onPress={openAllUserList}>
           <Text>View All</Text>
-        </Pressable>
+        </TouchableHighlight>
       </View>
       <View style={styles.leaderBoardContent}>
         {mockList.map(user => (

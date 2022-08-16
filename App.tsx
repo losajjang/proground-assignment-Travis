@@ -1,17 +1,23 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Point} from './src/pages/point/index';
-
-export type pageType = {
-  Point: undefined;
-};
+import {StyleSheet, View} from 'react-native';
+import {UserInfoNav} from './src/pages/userInfo/index';
+import {Provider} from 'react-redux';
+import store from './src/redux/configureStore';
 
 const App = () => {
   return (
-    <View style={{flex: 1}}>
-      <Point />
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <UserInfoNav />
+      </View>
+    </Provider>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default App;
