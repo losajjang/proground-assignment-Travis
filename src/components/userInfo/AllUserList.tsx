@@ -1,24 +1,30 @@
-import React, {useEffect} from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {useCallback, useEffect} from 'react';
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/configureStore';
 import {__getAllUserList} from '../../redux/modules/userList';
 import {AppDispatch} from '../../redux/configureStore';
+import {mockList} from '../../mockData';
+import {AllUserListScreenProps} from '../../types/AllUserListScreenPropsType';
 
-const AllUserList = () => {
+const AllUserList = ({navigation}: AllUserListScreenProps) => {
+  const aaa = mockList;
   const dispatch = useDispatch<AppDispatch>();
-
-  // useEffect(() => {
-  //   console.log('생성');
-  //   return console.log('소멸');
-  // });
 
   const getAllUserList = useSelector(
     (state: RootState) => state.userList.userList,
   );
-  // console.log(getAllUserList);
-  // const mappedAllUserList = getAllUserList.map(user => user);
-  // console.log(mappedAllUserList);
+
+  const openUserBlockModal = useCallback(() => {
+    navigation.navigate('UserBlock');
+  }, [navigation]);
 
   useEffect(() => {
     dispatch(__getAllUserList());
@@ -35,12 +41,19 @@ const AllUserList = () => {
           },
           index: number,
         ) => (
-          <View style={styles.userList} key={index}>
-            <Text>{index + 1}</Text>
-            <Image style={styles.image} source={{uri: user.image}} />
-            <Text style={styles.fontScore}>{user.serialNumber}</Text>
-            <Text>{user.price}</Text>
-          </View>
+          <Pressable
+            onPress={e => {
+              e.preventDefault();
+              openUserBlockModal();
+            }}>
+            <View style={styles.userList} key={index}>
+              <Text>{index + 1}</Text>
+              {/* <Image style={styles.image} source={user.image} /> */}
+              <Image style={styles.image} source={{uri: user.image}} />
+              <Text style={styles.fontScore}>{user.serialNumber}</Text>
+              <Text>{user.price}</Text>
+            </View>
+          </Pressable>
         ),
       )}
     </ScrollView>
