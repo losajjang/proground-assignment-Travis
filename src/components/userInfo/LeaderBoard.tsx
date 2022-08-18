@@ -1,70 +1,27 @@
-import React from 'react';
-import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useEffect, useState} from 'react';
+import {Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import {onPressProps} from '../../types/onPressProps';
 
 const LeaderBoard = ({openAllUserList}: onPressProps) => {
-  const mockList = [
-    {
-      id: 1,
-      rank: 1,
-      username: 'psy',
-      score: 30,
-    },
-    {
-      id: 2,
-      rank: 2,
-      username: 'pjm',
-      score: 20,
-    },
-    {
-      id: 3,
-      rank: 3,
-      username: 'pjm',
-      score: 20,
-    },
-    {
-      id: 4,
-      rank: 4,
-      username: 'pjm',
-      score: 20,
-    },
-    {
-      id: 5,
-      rank: 5,
-      username: 'pjm',
-      score: 20,
-    },
-    {
-      id: 6,
-      rank: 6,
-      username: 'pjm',
-      score: 20,
-    },
-    {
-      id: 7,
-      rank: 7,
-      username: 'pjm',
-      score: 20,
-    },
-    {
-      id: 8,
-      rank: 8,
-      username: 'pjm',
-      score: 20,
-    },
-    {
-      id: 9,
-      rank: 9,
-      username: 'pjm',
-      score: 20,
-    },
-    {
-      id: 10,
-      rank: 10,
-      username: 'pjm',
-      score: 20,
-    },
-  ];
+  const [userList, setUserList] = useState([]);
+
+  const getUserList = async () => {
+    try {
+      const getList = await AsyncStorage.getItem('userList');
+      if (getList !== null) {
+        const data = JSON.parse(getList);
+        const newData = data.slice(0, 10);
+        setUserList(newData);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUserList();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -75,14 +32,24 @@ const LeaderBoard = ({openAllUserList}: onPressProps) => {
         </TouchableHighlight>
       </View>
       <View style={styles.leaderBoardContent}>
-        {mockList.map(user => (
-          <View style={styles.userList} key={user.id}>
-            <Text>{user.rank}</Text>
-            <Text>사진</Text>
-            <Text>{user.username}</Text>
-            <Text style={styles.fontScore}>{user.score}</Text>
-          </View>
-        ))}
+        {userList.map(
+          (
+            user: {
+              isBlock: boolean;
+              image: string;
+              serialNumber: string;
+              price: string;
+            },
+            index: number,
+          ) => (
+            <View style={styles.userList}>
+              <Text>{index + 1}</Text>
+              <Image style={styles.image} source={{uri: user.image}} />
+              <Text style={styles.fontScore}>{user.serialNumber}</Text>
+              <Text>{user.price}</Text>
+            </View>
+          ),
+        )}
       </View>
     </View>
   );
@@ -110,14 +77,22 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
   },
   userList: {
-    paddingVertical: 12,
+    paddingVertical: 24,
     paddingHorizontal: 24,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   fontScore: {
-    marginLeft: 150,
+    position: 'absolute',
+    left: 130,
+  },
+  image: {
+    position: 'absolute',
+    left: 70,
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
   },
 });
 
