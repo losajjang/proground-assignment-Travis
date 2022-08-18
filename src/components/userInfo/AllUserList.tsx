@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -7,56 +7,97 @@ import {
   Text,
   View,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../../redux/configureStore';
-import {__getAllUserList} from '../../redux/modules/userList';
-import {AppDispatch} from '../../redux/configureStore';
-import {mockList} from '../../mockData';
-import {AllUserListScreenProps} from '../../types/AllUserListScreenPropsType';
+import UserBlockModal from './UserBlockModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Profile} from '../../assets/images/index';
 
-const AllUserList = ({navigation}: AllUserListScreenProps) => {
-  const aaa = mockList;
-  const dispatch = useDispatch<AppDispatch>();
+const AllUserList = () => {
+  const [userList, setUserList] = useState<any>();
+  const [modal, showModal] = useState(false);
+  const [userInfoModal, setUserInfoModal] = useState();
+  const [userIndexModal, setUserIndexModal] = useState();
 
-  const getAllUserList = useSelector(
-    (state: RootState) => state.userList.userList,
-  );
+  const openModal = async (user: any, index: any) => {
+    setUserInfoModal(user);
+    setUserIndexModal(index);
+    showModal(true);
+  };
 
-  const openUserBlockModal = useCallback(() => {
-    navigation.navigate('UserBlock');
-  }, [navigation]);
+  const getUserList = async () => {
+    try {
+      const getList = await AsyncStorage.getItem('userList');
+      if (getList !== null) {
+        const data = JSON.parse(getList);
+        setUserList(data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onBlock = (user: any) => {
+    setUserList(
+      userList.map((userOrigin: any) =>
+        userOrigin.serialNumber === user.serialNumber
+          ? {...userOrigin, isBlock: !userOrigin.isBlock}
+          : userOrigin,
+      ),
+    );
+    showModal(false);
+  };
 
   useEffect(() => {
-    dispatch(__getAllUserList());
-  }, [dispatch]);
+    getUserList();
+  }, []);
 
   return (
-    <ScrollView style={styles.container}>
-      {getAllUserList.map(
-        (
-          user: {
-            image: string;
-            serialNumber: string;
-            price: string;
-          },
-          index: number,
-        ) => (
-          <Pressable
-            onPress={e => {
-              e.preventDefault();
-              openUserBlockModal();
-            }}>
-            <View style={styles.userList} key={index}>
-              <Text>{index + 1}</Text>
-              {/* <Image style={styles.image} source={user.image} /> */}
-              <Image style={styles.image} source={{uri: user.image}} />
-              <Text style={styles.fontScore}>{user.serialNumber}</Text>
-              <Text>{user.price}</Text>
-            </View>
-          </Pressable>
-        ),
+    <>
+      <ScrollView style={styles.container}>
+        {userList?.map(
+          (
+            user: {
+              isBlock: boolean;
+              image: string;
+              serialNumber: string;
+              price: string;
+            },
+            index: number,
+          ) => (
+            <Pressable
+              key={index}
+              onPress={() => {
+                openModal(user, index);
+              }}>
+              <View style={styles.userList}>
+                <Text>{index + 1}</Text>
+                {user.isBlock ? (
+                  <>
+                    <Image style={styles.blockedImage} source={Profile} />
+                    <Text style={styles.fontScore}>
+                      blocked user_{index + 1}
+                    </Text>
+                  </>
+                ) : (
+                  <>
+                    <Image style={styles.image} source={{uri: user.image}} />
+                    <Text style={styles.fontScore}>{user.serialNumber}</Text>
+                  </>
+                )}
+                <Text>{user.price}</Text>
+              </View>
+            </Pressable>
+          ),
+        )}
+      </ScrollView>
+      {modal && (
+        <UserBlockModal
+          showModal={() => showModal(false)}
+          userInfoModal={userInfoModal}
+          userIndexModal={userIndexModal}
+          onBlock={onBlock}
+        />
       )}
-    </ScrollView>
+    </>
   );
 };
 
@@ -81,6 +122,13 @@ const styles = StyleSheet.create({
     left: 70,
     width: 50,
     height: 50,
+    resizeMode: 'contain',
+  },
+  blockedImage: {
+    position: 'absolute',
+    left: 75,
+    width: 35,
+    height: 35,
     resizeMode: 'contain',
   },
 });

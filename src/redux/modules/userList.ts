@@ -1,4 +1,5 @@
 import {createAction, handleActions} from 'redux-actions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {produce} from 'immer';
 import axios from 'axios';
 import {AppDispatch} from '../configureStore';
@@ -28,14 +29,21 @@ const initialState: UserListType = {
 };
 
 // middlewareActions
-export const __getAllUserList = () => {
+export const __getAllUserList: any = () => {
   return async function (dispatch: AppDispatch) {
     try {
       const allUserList = await axios.get(
         'https://vksxl3ztiuk5lbbpssgcebsmni0eqejl.lambda-url.ap-northeast-2.on.aws/?limit=100&offset=0',
       );
       dispatch(getAllUserList(allUserList as any));
-      console.log(allUserList.data);
+      const isBlock = {
+        isBlock: false,
+      };
+      let newAllUserList: any = [];
+      for (let i = 0; i < allUserList.data.length; i++) {
+        newAllUserList.push(Object.assign({...allUserList.data[i]}, isBlock));
+      }
+      await AsyncStorage.setItem('userList', JSON.stringify(newAllUserList));
     } catch (err) {
       console.log(err);
     }
@@ -46,11 +54,11 @@ export const __getAllUserList = () => {
 export default handleActions(
   {
     [GET_ALL_USER__LIST]: (state, action) =>
-      produce (state, draft => {
+      produce(state, draft => {
         draft.userList = action.payload.data.data;
       }),
+    // [BLOCK_USER]: (state, action) => produce(state, draft => {
+    // }),
   },
   initialState,
 );
-
-// actionCreatorExport
