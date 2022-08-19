@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View} from 'react-native';
 import {onPressProps} from '../../types/onPressProps';
 
 const LeaderBoard = ({openAllUserList}: onPressProps) => {
@@ -27,9 +27,9 @@ const LeaderBoard = ({openAllUserList}: onPressProps) => {
     <View style={styles.container}>
       <View style={styles.titleBox}>
         <Text style={styles.fontTitle}>LeaderBoard</Text>
-        <TouchableHighlight onPress={openAllUserList}>
+        <TouchableOpacity onPress={openAllUserList}>
           <Text>View All</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
       <View style={styles.leaderBoardContent}>
         {userList?.map(
