@@ -35,7 +35,7 @@
   이 부분은 모달을 직접 구현하는 것으로 해결했습니다.
 
 ## 구현 영상
-
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/97146131/185537070-c797dd0a-f65c-4ae8-89a9-30c5f81d0333.gif)
 
 ## 소감
 React-Native 를 사용해 볼 수 있는 소중한 시간이었습니다. 정말 감사드립니다. 
