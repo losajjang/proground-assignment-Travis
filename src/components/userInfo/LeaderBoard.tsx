@@ -42,7 +42,7 @@ const LeaderBoard = ({openAllUserList}: onPressProps) => {
             },
             index: number,
           ) => (
-            <View style={styles.userList}>
+            <View key={index} style={styles.userList}>
               <Text>{index + 1}</Text>
               <Image style={styles.image} source={{uri: user.image}} />
               <Text style={styles.fontScore}>{user.serialNumber}</Text>
