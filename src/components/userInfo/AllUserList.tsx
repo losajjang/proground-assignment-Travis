@@ -7,8 +7,8 @@ import {
   Text,
   View,
 } from 'react-native';
-import UserBlockModal from './UserBlockModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import UserBlockModal from './UserBlockModal';
 import {Profile} from '../../assets/images/index';
 
 const AllUserList = () => {

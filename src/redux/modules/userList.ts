@@ -57,8 +57,6 @@ export default handleActions(
       produce(state, draft => {
         draft.userList = action.payload.data.data;
       }),
-    // [BLOCK_USER]: (state, action) => produce(state, draft => {
-    // }),
   },
   initialState,
 );

@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {UserInfoNav} from './src/pages/userInfo/index';
 import {Provider} from 'react-redux';
+import {UserInfoNav} from './src/pages/userInfo/index';
 import store from './src/redux/configureStore';
 
 const App = () => {
