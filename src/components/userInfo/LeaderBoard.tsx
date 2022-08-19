@@ -32,7 +32,7 @@ const LeaderBoard = ({openAllUserList}: onPressProps) => {
         </TouchableHighlight>
       </View>
       <View style={styles.leaderBoardContent}>
-        {userList.map(
+        {userList?.map(
           (
             user: {
               isBlock: boolean;

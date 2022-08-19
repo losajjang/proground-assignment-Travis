@@ -1,50 +1,47 @@
-# Proground 프론트엔드 코스 사전과제
+# 프로그라운드 입사 사전과제.
 
-안녕하세요. Proground 프론트엔드 채용에 관심을 자지고 지원해 주셔서 감사합니다.
+## 실행 방법
+1. yarn install
+2. yarn run ios
 
-사전과제는 저희 팀원과 원활한 협업을 및 기본적인 개발 실력을 확인해보기위해 준비하였으며 
-본인이 할 수 있는 만큼 창의력과 성실함을 보여주신다면 충분히 반영할 예정이니 최선을 다해 주신다면 감사하겠습니다 :)
+## 사용 프레임워크, 라이브러리 및 사용 목적
+- TypeScript
+- React-Native
+  - React-Native 기반으로 App 개발 및 유지보수를 한다고 알고 있기 때문에
+    사용하였습니다.
+- Redux
+  - API 요청으로 받은 유저리스트를 Redux 로 관리했습니다.
+- Redux Thunk
+  - 미들웨어 상에서 dispatch 액션을 하기 위해 사용했습니다.
+- Redux Actions
+  - 간편하고 가독성있는 액션생선을 위해 사용했습니다.
+- Axios
+  - API 요청을 위해 사용했습니다.
+- immer
+  - API 요청으로 받은 유저리스트를 불변성을 유지하며 가공하기 위해 사용했습니다.
+- React Native Linear Gradient
+  - 메인화면의 Estimated WALK 부분의 그라데이션을 주기 위해 사용했습니다.
 
+## 과제 구현 수준
+- UI 구현
+- View All 터치 -> 유저 상세목록 이동 -> 전체 유저 조회 -> 
+  유저 터치 -> 모달 오픈 -> Block 터치 -> 해당 유저 차단 -> 
+  차단된 유저 터치 -> 모달 오픈 -> Unblock 터치 -> 차단 해제
+- 차단후 image 와 serialNumber 의 상태를 blocked user_num 으로 
+  바꿔주기 위한 방법으로, API 요청으로 받은 유저들의 배열내의 각 유저 객체마다 isBlock: false 값을 추가적으로 저장해 관리했습니다.
+- stack screen 으로 전체 사용자를 불러오는 Leader Board 화면은 쉽게 구성할 수 있었습니다.
+  하지만 Leader Board 화면에서 각 사용자를 터치했을 때 보여줄 차단 모달을 구현하는 것에서 어려운 점이 있었습니다.
+  tab screen 으로 구현을 하니 회색의 배경과 모달이 통째로 아래에서 위로 에니메이티드 되며 생성이 되었고 제가 원하는 구현 방법이 아니었습니다.
+  이 부분은 모달을 직접 구현하는 것으로 해결했습니다.
 
-## 진행 가이드
-- React와 React-Native중 원하는 프레임워크를 사용해주세요. (단, React의 경우 웹앱형식으로 구현해주세요. )
-- tpyeScript를 사용하시길 권장드립니다.
-- 반드시 상태관리 라이브러리 Redux를 필수로 사용해주세요.
-- 동영상과 같은 UI를 구성해주세요.( Asset폴터에 스크릿샷 첨부 )
-- View All 클릭  ->  유저 클릭  ->   Block 클릭시 ->  리스트에서 유저삭제
-- 유저 삭제는 별도의 API 요청 없이 AsyncStorage 및 LocalStorage를 사용해주세요.
-- 리스트 이외의 값들은 API요청 없이 코드에 원하는 값을 넣어주세요.
-- 사용 API : https://mxl2ywa4zhlvwjymvb5gnc247a0qfndn.lambda-url.ap-northeast-2.on.aws/?limit={limit}&offset={offset}
-
-```
-image :  프로필 사진
-serialNumber : 이름
-price : 획득 코인
-```
-
-## 제출 방법
-- 위의 Repository를 포크(fork)하여 개발 후 Git URL을 soy@proground.co.kr 로 첨부해주세요.
-- fork 레파지토리 명은 proground-assignment-영어닉네임으로 생성해주세요.
-- 코드의 일관성, 가독성, 함수분리, 컴포넌트 설계, 코드 퀄리티, 데이터 상태관리 등을 기준으로 세부적인 평가가 이루어집니다.
-- README.md에 본인이 과제 하면서 설명하고 싶은 부분이 있다면 자유롭게 작성해주세요.
-
-
-
-## 참고사항
- - 패키지 설치시 Yarn을 사용해주세요.
- - React-Native로 구현시 Window 컴퓨터를 사용하시고 계시다면 IOS는 개발 불가하므로 Android만을 기준으로 평가합니다.
- - 필요한 이미지는 Asset 폴더를 참고해주세요.
- - 텍스트 폰트는 원하는 것으로 자유롭게 사용해주세요.
-
-
-## 마감 기한
-- 마감 기한은 이메일 통지이후 일주일이내이며, 기한 내 Commit만 인정합니다.
-
-## 문의사항
-- 사전과제를 진행하며 궁금한 점은 soy@proground.co.kr로 문의해주시기 바랍니다.
-
-## 예시 
-- Asset폴터에 스크릿샷 혹은 메일로 첨부한 example.mp4 파일로 과제 예시를 확인해볼 수 있습니다.
+## 구현 영상
 
 
-
+## 소감
+React-Native 를 사용해 볼 수 있는 소중한 시간이었습니다. 정말 감사드립니다. 
+저는 React, Ionic-React 를 사용하며 사이드 프로젝트를 진행중이었습니다.
+Ionic-React를 사용하며 모바일앱 개발에 흥미를 느꼈고, 익숙한 React 기반인 React-Native 라는 것을 알게 되었습니다.
+현재 사이드프로젝트 단계에서 프레임워크를 변경할 수는 없었습니다.
+사용을 해보지 못 한다는 아쉬움이 있던 찰나에 React-Native 를 활용한 사전과제를 받을 수 있었습니다.
+처음 사용해보는 React-Native이기에 압박감이 있었지만, 강의를 구매하고 여러 방법으로 기능을 구현해 나갔습니다.
+정말 즐겁고 뿌듯한 경험이었습니다.
